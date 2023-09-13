@@ -1,9 +1,9 @@
 import logging
 from functools import lru_cache
-from fastapi import HTTPException
-from elasticsearch import AsyncElasticsearch
-from pydantic import AnyUrl, BaseSettings
 
+from elasticsearch import AsyncElasticsearch
+from fastapi import HTTPException
+from pydantic import AnyUrl, BaseSettings
 
 log = logging.getLogger("uvicorn")
 
@@ -23,16 +23,15 @@ def get_settings() -> BaseSettings:
 es_instance = None
 
 
-def get_elasticsearch():
+def get_async_elasticsearch():
     global es_instance
 
-    # If we haven't created the instance, we do it once
     if not es_instance:
         try:
             es_instance = AsyncElasticsearch(hosts=get_settings().es_hosts)
         except Exception as e:
             raise HTTPException(
-                status_code=500, detail="Elasticsearch connection error"
+                status_code=500, detail=f"Elasticsearch connection error: {e}"
             )
 
     return es_instance

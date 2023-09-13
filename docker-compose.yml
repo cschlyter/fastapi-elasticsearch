@@ -27,6 +27,17 @@ services:
       - ENVIRONMENT=dev
       - TESTING=0
       - ES_HOSTS=http://server-elasticsearch:9200
+  client:
+    build:
+      context: ./client
+    command: ["yarn", "start"]
+    container_name: client
+    depends_on:
+      - server
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client:/usr/src/app
 
 volumes:
   fastapi-elasticsearch:

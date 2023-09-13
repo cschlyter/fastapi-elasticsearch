@@ -1,6 +1,10 @@
 fastapi==0.94.1
 uvicorn==0.21.1
 httpx==0.23.3
-pytest==7.2.2
 aiohttp==3.8.5
 elasticsearch==8.9.0
+pytest==7.2.2
+pytest-cov==4.0.0
+flake8==6.0.0
+black==23.1.0
+isort==5.12.0

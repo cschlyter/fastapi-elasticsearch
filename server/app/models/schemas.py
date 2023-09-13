@@ -1,9 +1,10 @@
 from datetime import datetime
-from pydantic import BaseModel
+
+from pydantic import BaseModel, constr
 
 
 class EntryPayloadSchema(BaseModel):
-    text: str
+    text: constr(min_length=1, strip_whitespace=True)
     timestamp: datetime = None
 
 
