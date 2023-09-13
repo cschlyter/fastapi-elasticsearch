@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  elasticsearch:
+    container_name: server-elasticsearch
+    environment:
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      # WARNING: Enable X-Pack security for production builds
+      - xpack.security.enabled=false
+    image: elasticsearch:8.9.2
+    ports:
+      - 9200:9200
+    volumes:
+      - fastapi-elasticsearch:/usr/share/elasticsearch/data
+  server:
+    build: ./server
+    depends_on:
+      - elasticsearch
+    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    volumes:
+      - ./server:/usr/src/app
+    ports:
+      - 8004:8000
+    environment:
+      - ENVIRONMENT=dev
+      - TESTING=0
+      - ES_HOSTS=http://server-elasticsearch:9200
+
+volumes:
+  fastapi-elasticsearch:
