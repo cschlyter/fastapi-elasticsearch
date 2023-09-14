@@ -15,7 +15,10 @@ function App() {
   const [results, setResults] = useState([]);
 
   const search = async (query, datetime) => {
-    let params = { query: query };
+    let params = {};
+    if (query) {
+      params.query = query;
+    }
 
     if (datetime) {
       params.start_date = datetime;

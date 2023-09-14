@@ -143,3 +143,15 @@ def test_search_entry__search_by_timestamp_range(test_app_with_db):
     entry_1 = response_list[1]
     assert entry_1.get("text") == "Redanian Lager"
     assert entry_1.get("id") == "2"
+
+
+def test_search_entry__empty_text_should_return_all(test_app_with_db):
+    text = "Stout"
+
+    with patch("app.api.crud.constants.ES_INDEX", ES_TEST_INDEX):
+        response = test_app_with_db.get(f"/entries")
+
+    assert response.status_code == 200
+    response_list = response.json()
+
+    assert len(response_list) == 3

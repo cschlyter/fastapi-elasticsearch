@@ -1,4 +1,4 @@
-ES_INDEX = "entries"
+ES_INDEX = "entries-index"
 
 ES_TEST_INDEX = "test-index"
 
