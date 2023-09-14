@@ -23,11 +23,11 @@ Use Docker Compose to build and start the services:
 docker-compose up --build
 ```
 
-This command will set up the FastAPI application, Elasticsearch, and any other services defined in your `docker-compose.yml` file. Once everything is up and running, you can access the FastAPI application via your web browser or a tool like [httpie](https://httpie.io/) or [curl](https://curl.se/).
+This command will build and run the FastAPI backend, Elasticsearch, and the React frontend. Once everything is up and running, you can access the FastAPI application via your web browser or a tool like [httpie](https://httpie.io/) or [curl](https://curl.se/).
 
 ### 3. Access the API Documentation
 
-FastAPI provides automatic interactive API documentation. Once the application is running, visit:
+Once the containers are running, visit:
 
 ```
 http://localhost:8004/docs
@@ -52,8 +52,6 @@ To run the coverage report:
 ```bash
 docker-compose exec server python -m pytest --cov="."
 ```
-
-This command will execute all the tests in the application. It's recommended to run tests before making changes to ensure the application is functioning as expected.
 
 ## Accessing the Frontend
 
